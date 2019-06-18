@@ -25,7 +25,25 @@ return MyQ;
 
 /** Insert an element into the circular queue. Return true if the operation is successful. */
 bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
+ 
+	//MyCircularQueue* MyQ;
+	if(obj == NULL)
+	{
+		return false;
+	}
+	if(obj->used == obj->size)
+	{
+		printf("\nFifo full!\n");
+		return false;
+	}
 
+	obj->Q[obj->w]=value;
+	obj->w++;
+	if(obj->w == obj->size)
+	{
+		obj->w = 0;
+	}
+	obj->used++;
 	return true;
 }
 
