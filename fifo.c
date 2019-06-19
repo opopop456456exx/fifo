@@ -1,8 +1,6 @@
 #include<stdlib.h>
 #include"stdio.h"
 #include "fifo.h"
-
-
 /** Initialize your data structure here. Set the size of the queue to be k. */
 
 MyCircularQueue* myCircularQueueCreate(int k) {
@@ -38,6 +36,7 @@ bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
 	}
 
 	obj->Q[obj->w]=value;
+    printf("\r\n%d %d",obj->w,obj->Q[obj->w]);
 	obj->w++;
 	if(obj->w == obj->size)
 	{
@@ -49,32 +48,96 @@ bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
 
 /** Delete an element from the circular queue. Return true if the operation is successful. */
 bool myCircularQueueDeQueue(MyCircularQueue* obj) {
+	//int res;
+	if (obj == NULL)
+	{
+		return false;
+	}
+
+	if (obj->used == 0)
+	{
+		printf("\r\nQueue is empty!");
+		return false;
+	}
+	//res = obj->Q[obj->r];
+	obj->r++;
+	obj->used--;
+
   	return true;
 }
 
 /** Get the front item from the queue. */
 int myCircularQueueFront(MyCircularQueue* obj) {
-  	return true;
+	int res;
+	if (obj == NULL)
+	{
+		return false;
+	}
+
+	if (obj->used == 0)
+	{
+		printf("\r\nFQueue is empty!");
+		return -1;
+	}
+	res = obj->Q[obj->r];
+	//obj->r++;
+	//obj->used--;
+
+  	return res;
 }
 
 /** Get the last item from the queue. */
 int myCircularQueueRear(MyCircularQueue* obj) {
-  	return true;
+  	int res;
+    int wtmp;
+	if (obj == NULL)
+	{
+		return false;
+	}
+
+	if (obj->used == 0)
+	{
+		printf("\r\nQueue is empty!");
+		return -1;
+	}
+    if(obj->w -1 >= 0)
+    {
+        wtmp = obj->w - 1;
+    }
+    else
+    {
+        wtmp = obj->size - 1;
+    }
+	res = obj->Q[wtmp];
+	return res;
 }
 
 /** Checks whether the circular queue is empty or not. */
 bool myCircularQueueIsEmpty(MyCircularQueue* obj) {
-  	return true;
+  	if(obj->used > 0)
+	{
+	  return false;
+	}
+	return true;
 }
 
 /** Checks whether the circular queue is full or not. */
 bool myCircularQueueIsFull(MyCircularQueue* obj) {
-  	return true;
+ if(obj->used  == obj->size)
+ {
+	 return true;
+ }
+	return false;
 }
 
 void myCircularQueueFree(MyCircularQueue* obj) {
+
+	obj->r=0;
+	obj->w=0;
+	obj->used=0;
     	return;
 }
+
 
 /**
  * Your MyCircularQueue struct will be instantiated and called as such:
